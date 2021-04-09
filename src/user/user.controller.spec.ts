@@ -25,6 +25,7 @@ describe('UserController', () => {
     }).compile();
 
     userController = module.get<UserController>(UserController);
+    userService = module.get<UserService>(UserService);
   });
 
   it('should be defined', () => {
