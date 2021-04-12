@@ -7,7 +7,7 @@ import { User } from './user.model';
 
 @Injectable()
 export class UserService {
-    async findOneByEmail(email: string) {
+    findOneByEmail(email: string) {
         return this.userModel.findOne({ where: { email } });
      }
 
