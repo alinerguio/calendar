@@ -7,6 +7,10 @@ import { User } from './user.model';
 
 @Injectable()
 export class UserService {
+    async findOneByEmail(email: string) {
+        return this.userModel.findOne({ where: { email } });
+     }
+
     constructor(
         @InjectModel(User)
         private userModel: typeof User,

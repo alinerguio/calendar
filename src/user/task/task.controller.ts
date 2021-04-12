@@ -1,20 +1,20 @@
-import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Query } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
-import { FindTasksDto } from './dto/find-tasks.dto';
 import { TaskService } from './task.service';
 
-@Controller('users/:id/tasks')
+@Controller('users/:id_user/tasks')
 export class TaskController {
     constructor(private taskService: TaskService){}
 
     @Post()
-    createUser(@Body() createTask: CreateTaskDto){
-        return this.taskService.createTask(createTask);
+    createUser(@Param('id_user') id_user: string, @Body() createTaskDto: CreateTaskDto){
+        createTaskDto.userId = +id_user;
+        return this.taskService.createTask(createTaskDto);
     }
 
     @Get()
-    findTasks(@Query() findTasks: FindTasksDto){
-        return this.taskService.findTasks(findTasks);
+    findTasks(@Param('id_user', ParseIntPipe) userId: number){
+        return this.taskService.findTasks(userId);
     }
 
     @Delete(':id')

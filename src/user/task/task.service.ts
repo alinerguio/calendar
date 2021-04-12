@@ -1,7 +1,6 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateTaskDto } from './dto/create-task.dto';
-import { FindTasksDto } from './dto/find-tasks.dto';
 import { Task } from './task.model';
 
 @Injectable()
@@ -15,9 +14,9 @@ export class TaskService {
         return this.taskModel.create(createTask);
     }
 
-    findTasks(findTasks: FindTasksDto): Promise<Task[]> {
+    findTasks(userId: number): Promise<Task[]> {
         const where: any = {}
-        where.userId = findTasks.userId;
+        where.userId = userId;
         return this.taskModel.findAll({ where });
     }
 
